@@ -1,0 +1,23 @@
+@model Ctf.Models.ViewModels.ScoreboardViewModel
+
+<h1>Highscore</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Team:</th>
+            @foreach(var quest in Model.Quests){
+                <th title="@quest.Id">@(quest.Name)</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var team in Model.Teams){
+            <tr>
+                <td>@(team.Name)<br>(@(team.TotalScore.ToString()))</td>
+                @foreach(var quest in Model.Quests){
+                    <th>@(team.GetScore(quest.Id)?.Finished.ToString("HH:mm:ss") ?? "-") (@(team.GetScore(quest.Id)?.Score))</th>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

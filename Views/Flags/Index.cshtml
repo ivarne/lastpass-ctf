@@ -1,0 +1,15 @@
+@model Ctf.Models.ViewModels.FlagViewModel
+@{
+    ViewData["Title"] = "Flags";
+}
+
+<h1 class="display-4">Her er flaggene</h1>
+
+@foreach (var quest in Model.Quests)
+{
+    <div class="">
+        <h2>@(quest.Name)</h2>
+        <p>@(quest.Description) <a asp-area="@(quest.Area)" asp-controller="@quest.Controller" asp-action="Index">Se oppgaven...</a></p>
+    </div>
+    
+}
