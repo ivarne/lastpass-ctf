@@ -14,14 +14,17 @@ namespace Ctf.Models.BuisinesModels{
         public int TotalScore
         {
             get{
+                Console.WriteLine($"\nScore:{Name}");
                 var score = QuestScores.Sum(qs => qs.Score);
-                Console.WriteLine($"Score {Name}: {score}");
+                Console.WriteLine($"Score {Name}: {score}\n");
                 return score;
             }
         }
-        public QuestScore? GetScore(Guid id){
-            var score = QuestScores.FirstOrDefault(qs=>qs.QuestId == id);
-            Console.WriteLine($"GetScore: {id} {score?.QuestId.ToString().TakeLast(1).First()??' '}");
+        public QuestScore? GetScore(Guid QuestId){
+            Console.WriteLine($"GetScore: {QuestScores.Count()}");
+            var score = QuestScores.FirstOrDefault(qs=>qs.QuestId == QuestId);
+            Console.WriteLine($"GetScore: {QuestId} {score?.QuestId.ToString().TakeLast(1).First()??' '}");
+            Console.WriteLine($"GetScore: {QuestScores.Count()}");
             return score;
         }
     }

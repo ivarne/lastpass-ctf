@@ -22,7 +22,8 @@ namespace Ctf.Repositories{
 
             return quests
                 .Where(q => random.NextDouble() > 0.4)
-                .Select(q => new QuestScore(q.Id, DateTime.Now.AddHours(-random.NextDouble())));
+                .Select(q => new QuestScore(q.Id, DateTime.Now.AddHours(-random.NextDouble())))
+                .ToList();
         }
         private  async Task<IEnumerable<Team>> GetFakeTeams(){
 

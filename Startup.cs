@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Ctf.Repositories;
+using Ctf.Controllers;
 
 namespace Ctf
 {
@@ -34,10 +35,13 @@ namespace Ctf
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
+            
             // Add repositories
             services.AddScoped<QuestRepository,QuestRepository>();
             services.AddScoped<ScoringRepository,ScoringRepository>();
             services.AddScoped<FlagRepository,FlagRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +76,12 @@ namespace Ctf
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ScoreHub>("/scoreHub");
             });
+            // app.UseSignalR(routes =>
+            // {
+            //     routes.MapHub<ChatHub>("/chatHub");
+            // });
         }
     }
 }

@@ -15,9 +15,38 @@
             <tr>
                 <td>@(team.Name)<br>(@(team.TotalScore.ToString()))</td>
                 @foreach(var quest in Model.Quests){
-                    <th>@(team.GetScore(quest.Id)?.Finished.ToString("HH:mm:ss") ?? "-") (@(team.GetScore(quest.Id)?.Score))</th>
+                    <th>@(team.GetScore(quest.Id)?.Finished.ToString("HH:mm:ss") ?? "-")</th>
                 }
             </tr>
         }
     </tbody>
 </table>
+
+<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+    <script src="~/js/scoreboard.js" asp-append-version="true"></script>
+}
