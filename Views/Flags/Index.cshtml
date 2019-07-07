@@ -9,7 +9,7 @@
 {
     <div class="">
         <h2>@(quest.Name)</h2>
-        <p>@(quest.Description) <a asp-area="@(quest.Area)" asp-controller="@quest.Controller" asp-action="Index">Se oppgaven...</a></p>
+        <p>@(quest.Description) <a asp-area="@quest.Area" asp-controller="@quest.Area" asp-action="index">Se oppgaven...</a></p>
     </div>
     
 }

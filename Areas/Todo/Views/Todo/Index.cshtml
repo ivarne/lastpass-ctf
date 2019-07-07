@@ -1,0 +1,24 @@
+@model Ctf.Areas.Todo.TodoViewModel
+<h1>Todo app:</h1>
+
+<h2>Mine oppgaver:</h2>
+<ul>
+    @foreach( var todo in Model.Todos){
+        <li>{todo}</li>
+    }
+</ul>
+
+<h2>Opprett en oppgave</h2>
+<form>
+    <div class="form-row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="oppgave">
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Lagre</button>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/areas/todo.js" asp-append-version="true"></script>
+}

@@ -23,10 +23,10 @@ namespace Ctf.Repositories{
                 ),
                 new Quest(
                     Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efc"),
-                    Name : "XSRF",
+                    Name : "Todo",
                     Points : 100,
-                    Description: "Hva kan du gjøre med et api som gjør endringer uten ekstra beskyttelse",
-                    Area: "Intro"
+                    Description: "Les notater som ikke er dine",
+                    Area: "Todo"
                 ),
                 new Quest(
                     Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efd"),
