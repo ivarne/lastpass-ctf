@@ -9,10 +9,11 @@
 </ul>
 
 <h2>Opprett en oppgave</h2>
-<form>
+
+<form asp-area="Todo" asp-controller="Todo" asp-action="Todo"  method="post">
     <div class="form-row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="oppgave">
+            <input type="text" class="form-control" placeholder="oppgave" name="Description">
         </div>
         <div class="col">
             <button type="submit" class="btn btn-primary">Lagre</button>

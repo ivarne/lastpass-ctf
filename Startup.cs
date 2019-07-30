@@ -36,11 +36,19 @@ namespace Ctf
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSignalR();
+            services.AddAuthentication(Constants.COOKIE_NAME)
+                .AddCookie(Constants.COOKIE_NAME);
             
             // Add repositories
             services.AddScoped<QuestRepository,QuestRepository>();
             services.AddScoped<ScoringRepository,ScoringRepository>();
-            services.AddScoped<FlagRepository,FlagRepository>();
+            if(true){
+                services.AddScoped<FlagRepository,LocalFlagRepository>();
+            }
+            else{
+                services.AddScoped<FlagRepository,AzureKeyVaultFlagRepository>();
+            }
+            services.AddSingleton<TodoRepository, TodoRepository>();
 
         }
 
@@ -66,6 +74,7 @@ namespace Ctf
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

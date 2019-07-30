@@ -5,12 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ctf.Models;
+using Ctf.Repositories;
 
 namespace Ctf.Areas.Intro{
     [Area("Intro")]
     public class IntroController : Controller{
-        public IActionResult Index(){
-            return View(new IndexViewModel( "this_is_your_first_flag"));
+        private readonly FlagRepository _flagRepository;
+        private readonly QuestRepository _questRepository;
+        public IntroController(FlagRepository flagRepository, QuestRepository questRepository)
+        {
+            _flagRepository = flagRepository;
+            _questRepository = questRepository;
+        }
+        public async Task<IActionResult> Index(){
+
+            return View(new IndexViewModel( _flagRepository.GetFlag(await _questRepository.GetQuest(Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efb")))));
         }
     }
 }
