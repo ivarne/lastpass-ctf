@@ -12,6 +12,9 @@ namespace Ctf.Utils{
         private static IEnumerable<string> _GetAreasWithAreaRoot(){
             var cd = Directory.GetCurrentDirectory();
             var directory = new DirectoryInfo(Path.Combine(cd, "Areas"));
+            if(!directory.Exists){
+                throw new Exception("Areas are not availble in build output");
+            }
             var areas = directory.EnumerateDirectories();
             foreach(var area in areas){
                 var wwwarearoot = area.EnumerateDirectories("wwwarearoot").FirstOrDefault();

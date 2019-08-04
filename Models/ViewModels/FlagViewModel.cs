@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-using Ctf.Models.BuisinesModels;
+using Ctf.Models.BusinessModels;
 
 namespace Ctf.Models.ViewModels{
     public class FlagViewModel{

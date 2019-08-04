@@ -1,6 +1,6 @@
 using System;
 
-namespace Ctf.Models.BuisinesModels{
+namespace Ctf.Models.BusinessModels{
     public class QuestScore{
         public QuestScore(Guid QuestId, DateTime Finished)
         {

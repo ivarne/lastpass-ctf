@@ -4,7 +4,7 @@
 <h2>Mine oppgaver:</h2>
 <ul>
     @foreach( var todo in Model.Todos){
-        <li>{todo}</li>
+        <li><a asp-action="show" asp-route-id=@(todo.Id)>@(todo.Description)</a></li>
     }
 </ul>
 

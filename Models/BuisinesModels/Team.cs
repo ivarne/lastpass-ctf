@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ctf.Models.BuisinesModels{
+namespace Ctf.Models.BusinessModels{
     public class Team {
         public Team(string Name, IEnumerable<QuestScore> QuestScores){
             this.Name = Name;

@@ -1,4 +1,4 @@
-namespace Ctf.Models.BuisinesModels {
+namespace Ctf.Models.BusinessModels {
     public class TeamScore{
         public TeamScore(Team team, QuestScore questScore)
         {

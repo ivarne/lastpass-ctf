@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ctf.Models.BuisinesModels;
+using Ctf.Models.BusinessModels;
 
 namespace Ctf.Repositories{
     public class ScoringRepository{

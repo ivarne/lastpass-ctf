@@ -42,12 +42,7 @@ namespace Ctf
             // Add repositories
             services.AddScoped<QuestRepository,QuestRepository>();
             services.AddScoped<ScoringRepository,ScoringRepository>();
-            if(true){
-                services.AddScoped<FlagRepository,LocalFlagRepository>();
-            }
-            else{
-                services.AddScoped<FlagRepository,AzureKeyVaultFlagRepository>();
-            }
+            services.AddSingleton<FlagRepository,FlagRepository>();
             services.AddSingleton<TodoRepository, TodoRepository>();
 
         }

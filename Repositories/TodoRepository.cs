@@ -10,15 +10,19 @@ namespace Ctf.Repositories{
         public TodoRepository(FlagRepository flagRepository)
         {
             _flagRepository = flagRepository;
-            _todos = new Todo[]{};
+            _todos = new List<Todo>();
+            Console.WriteLine("TodoRepositoryConstructor");
         }
-        private IEnumerable<Todo> _todos;
+        private List<Todo> _todos;
         private FlagRepository _flagRepository;
         private async Task InitTodos(){
             if(_todos.Count() < 1)
-                _todos = new List<Todo>{
-                    new Todo(1, await _flagRepository.GetFlag("49bdf307-510b-4429-8539-a62c6a415efc"),""),
-                };
+            {
+                Console.WriteLine("InitTodos");
+                _todos.Add(
+                    new Todo(1, await _flagRepository.GetFlag("49bdf307-510b-4429-8539-a62c6a415efc"),"")
+                );
+            }
         }
         public async Task<IEnumerable<Todo>> GetTodos(string team){
             await InitTodos();
@@ -30,8 +34,8 @@ namespace Ctf.Repositories{
         }
         public async Task<bool> CreateTodo(Todo todo){
             await InitTodos();
-            todo.Id = _todos.Count();
-            _todos.Append(todo);
+            todo.Id = _todos.Count()+1;
+            _todos.Add(todo);
             return true;
         }
     }

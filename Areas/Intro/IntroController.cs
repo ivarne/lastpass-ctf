@@ -19,7 +19,7 @@ namespace Ctf.Areas.Intro{
         }
         public async Task<IActionResult> Index(){
 
-            return View(new IndexViewModel( _flagRepository.GetFlag(await _questRepository.GetQuest(Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efb")))));
+            return View(new IndexViewModel( await _flagRepository.GetFlag("49bdf307-510b-4429-8539-a62c6a415efb")));
         }
     }
 }

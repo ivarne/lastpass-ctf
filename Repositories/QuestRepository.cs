@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ctf.Models.BuisinesModels;
+using Ctf.Models.BusinessModels;
 
 namespace Ctf.Repositories{
     public class QuestRepository{
         public Task<IEnumerable<Quest>> GetQuests(){
             return Task.FromResult<IEnumerable<Quest>>(QUESTS);
         }
-        public Task<Quest> GetQuest(Guid id){
-            return Task.FromResult<Quest>(QUESTS.FirstOrDefault(q=>q.Id == id));
+        public Task<Quest?> GetQuest(Guid id){
+            return Task.FromResult<Quest?>(QUESTS.FirstOrDefault(q=>q.Id == id));
         }
 
         private static Quest[] QUESTS = new Quest[]{

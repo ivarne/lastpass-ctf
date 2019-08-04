@@ -1,6 +1,6 @@
 using System;
 
-namespace Ctf.Models.BuisinesModels{
+namespace Ctf.Models.BusinessModels{
 
     public class Quest{
         public Quest(Guid Id, string Name, int Points, string Description, string Area, string Controller = "Home")

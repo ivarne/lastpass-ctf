@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Ctf.Models.ViewModels;
-using Ctf.Models.BuisinesModels;
+using Ctf.Models.BusinessModels;
 using Ctf.Repositories;
 
 namespace Ctf.Controllers{
