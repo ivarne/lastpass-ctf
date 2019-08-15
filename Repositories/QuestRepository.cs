@@ -44,7 +44,8 @@ namespace Ctf.Repositories
 					Name: "ByPass",
 					Points: 200,
 					Description: "Bruk andres cookies med XSRF",
-					Area: "ByPass"
+					Area: "ByPass",
+					HasFlag: false
 				),
 				new Quest(
 					Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efd"),

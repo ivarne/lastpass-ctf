@@ -44,11 +44,10 @@ namespace Ctf
 			services.AddRazorPages();
 			services.AddSignalR();
 			services.AddAuthentication(Constants.COOKIE_NAME)
-				.AddCookie(options =>
-				{
-					options.Cookie.Name = Constants.COOKIE_NAME;
-					options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
-				});
+				.AddCookie(Constants.COOKIE_NAME, options =>
+				 {
+					 options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None; // asp.net core makes it really hard to be XSRF attackable
+				 });
 
 			// Add repositories
 			services.AddScoped<QuestRepository, QuestRepository>();
@@ -79,7 +78,7 @@ namespace Ctf
 
 			app.UseCookiePolicy(new CookiePolicyOptions
 			{
-				MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
+				MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None // asp.net core makes it really hard to be XSRF attackable
 			});
 
 			app.UseRouting();

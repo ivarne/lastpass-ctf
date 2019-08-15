@@ -10,7 +10,11 @@
     <div class="">
         <h2>@(quest.Name)</h2>
         <p>@(quest.Description) <a asp-area="@quest.Area" asp-controller="@quest.Area" asp-action="index">Se oppgaven...</a></p>
-            @if (User.Identity.IsAuthenticated)
+            @if(!quest.HasFlag)
+            {
+                <em>Oppgaven har ikke flag</em>
+            }
+            else if (User.Identity.IsAuthenticated)
             {
                 <form method="post">
                     <input type="hidden" name="QuestId" value="@(quest.Id)">
