@@ -13,6 +13,8 @@ using Ctf.Repositories;
 using Ctf.Controllers;
 using Ctf.Utils;
 
+using Ctf.Areas.Admin;
+
 namespace Ctf
 {
 	public class Startup
@@ -55,6 +57,7 @@ namespace Ctf
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+            UpdateDatabase(app); // Automatically migrate database
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -74,25 +77,45 @@ namespace Ctf
 
 			app.UseRouting();
 
-			app.UseAuthentication();
+            app.UseAuthentication();
 			app.UseAuthorization();
-
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapControllerRoute(
-					name: "areas",
-					pattern: "{area:exists}/{controller:exists=Home}/{action=Index}/{id?}"
-				);
-				endpoints.MapControllerRoute(
-					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
-
-				endpoints.MapHub<ScoreHub>("/scoreHub");
-			});
-			// app.UseSignalR(routes =>
-			// {
-			//     routes.MapHub<ChatHub>("/chatHub");
-			// });
-		}
-	}
+            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller:exists=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+                endpoints.MapHub<ScoreHub>("/scoreHub");
+                endpoints.MapHub<AdminChatHub>("/adminChat");
+            });
+            // app.UseSignalR(routes =>
+            // {
+            //     routes.MapHub<ChatHub>("/chatHub");
+            // });
+        }
+        // Automatically run migrations on database on startup
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<CtfDbContext>())
+                {
+                    Console.WriteLine("============================");
+                    Console.WriteLine("Before migration");
+                    Console.WriteLine("============================");
+                    context.Database.Migrate();
+                    Console.WriteLine("============================");
+                    Console.WriteLine("After migration");
+                    Console.WriteLine("============================");
+                }
+            }
+        }
+    }
 }

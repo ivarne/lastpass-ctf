@@ -9,7 +9,7 @@ namespace Ctf.Repositories
 		public CtfDbContext(DbContextOptions<CtfDbContext> options)
 		: base(options)
 		{ }
-		public DbSet<TeamEntity> Teams { get; set; }
-		public DbSet<ScoreEntity> Scores { get; set; }
+		public DbSet<TeamEntity> Teams { get; set; } = null!;
+		public DbSet<ScoreEntity> Scores { get; set; } = null!;
 	}
 }

@@ -10,13 +10,14 @@ using Ctf.Repositories;
 
 namespace Ctf.Controllers{
     public class ScoreboardController : Controller{
-        private ScoringRepository _scoringRepository { get; set; }
-        private QuestRepository _questRepository { get; set; }
+        private readonly ScoringRepository _scoringRepository;
+        private readonly QuestRepository _questRepository;
         
         public ScoreboardController(ScoringRepository scoringRepository, QuestRepository questRepository)
         {
             _scoringRepository = scoringRepository;
             _questRepository = questRepository;
+            
         }
         public async Task<IActionResult> Index()
         {

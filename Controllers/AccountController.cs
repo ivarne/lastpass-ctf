@@ -27,6 +27,8 @@ namespace Ctf.Controllers{
                 };
                 if(model._isAdmin){
                     claims.Append(new Claim(ClaimTypes.Role, "Admin"));
+                }else if("admin".Equals(model.TeamName, StringComparison.InvariantCultureIgnoreCase)){
+                    throw new Exception("Team can't be named Admin");
                 }
 
                 var claimsIdentity = new ClaimsIdentity(

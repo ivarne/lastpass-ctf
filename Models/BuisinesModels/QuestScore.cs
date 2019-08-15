@@ -5,7 +5,9 @@ namespace Ctf.Models.BusinessModels{
         public QuestScore(Guid QuestId, DateTime Finished)
         {
             this.QuestId = QuestId;
+            
             this.Finished = Finished;
+
         }
         public Guid QuestId { get; set; }
         public DateTime Finished { get; set;}

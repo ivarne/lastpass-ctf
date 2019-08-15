@@ -10,6 +10,20 @@
     <div class="">
         <h2>@(quest.Name)</h2>
         <p>@(quest.Description) <a asp-area="@quest.Area" asp-controller="@quest.Area" asp-action="index">Se oppgaven...</a></p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post">
+                    <input type="hidden" name="QuestId" value="@(quest.Id)">
+                    <input type="text" placeholder="CTF{...}" name="Flag">
+
+                    <button type="submit" >Send inn</button>
+                </form>
+            }
+            else
+            {
+                <strong>Logg inn for å levere flag</strong>
+            }
+
     </div>
     
 }
