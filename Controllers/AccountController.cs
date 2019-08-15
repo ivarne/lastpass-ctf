@@ -10,67 +10,76 @@ using System.Security.Claims;
 using Ctf.Models.ViewModels;
 using Ctf.Utils;
 
-namespace Ctf.Controllers{
-    public class AccountController : Controller{
-        [HttpGet]
-        public IActionResult Login(){
-            return View(new LoginViewModel());
-        }
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model){
-            
-            if(ModelState.IsValid){
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.TeamName),
-                    new Claim(ClaimTypes.Role, "Team"),
-                };
-                if(model._isAdmin){
-                    claims.Append(new Claim(ClaimTypes.Role, "Admin"));
-                }else if("admin".Equals(model.TeamName, StringComparison.InvariantCultureIgnoreCase)){
-                    throw new Exception("Team can't be named Admin");
-                }
+namespace Ctf.Controllers
+{
+	public class AccountController : Controller
+	{
+		[HttpGet]
+		public IActionResult Login()
+		{
+			return View(new LoginViewModel());
+		}
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel model)
+		{
 
-                var claimsIdentity = new ClaimsIdentity(
-                    claims, Constants.COOKIE_NAME);
+			if (ModelState.IsValid)
+			{
+				var claims = new List<Claim>
+				{
+					new Claim(ClaimTypes.Name, model.TeamName),
+					new Claim(ClaimTypes.Role, "Team"),
+				};
+				if (model._isAdmin)
+				{
+					claims.Add(new Claim(ClaimTypes.Role, "admin"));
+				}
+				else if ("admin".Equals(model.TeamName, StringComparison.InvariantCultureIgnoreCase))
+				{
+					throw new Exception("Team can't be named Admin");
+				}
 
-                var authProperties = new AuthenticationProperties
-                {
-                    //AllowRefresh = <bool>,
-                    // Refreshing the authentication session should be allowed.
+				var claimsIdentity = new ClaimsIdentity(
+					claims, Constants.COOKIE_NAME);
 
-                    //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                    // The time at which the authentication ticket expires. A 
-                    // value set here overrides the ExpireTimeSpan option of 
-                    // CookieAuthenticationOptions set with AddCookie.
+				var authProperties = new AuthenticationProperties
+				{
+					//AllowRefresh = <bool>,
+					// Refreshing the authentication session should be allowed.
 
-                    //IsPersistent = true,
-                    // Whether the authentication session is persisted across 
-                    // multiple requests. When used with cookies, controls
-                    // whether the cookie's lifetime is absolute (matching the
-                    // lifetime of the authentication ticket) or session-based.
+					//ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+					// The time at which the authentication ticket expires. A 
+					// value set here overrides the ExpireTimeSpan option of 
+					// CookieAuthenticationOptions set with AddCookie.
 
-                    //IssuedUtc = <DateTimeOffset>,
-                    // The time at which the authentication ticket was issued.
+					//IsPersistent = true,
+					// Whether the authentication session is persisted across 
+					// multiple requests. When used with cookies, controls
+					// whether the cookie's lifetime is absolute (matching the
+					// lifetime of the authentication ticket) or session-based.
 
-                    //RedirectUri = <string>
-                    // The full path or absolute URI to be used as an http 
-                    // redirect response value.
-                };
+					//IssuedUtc = <DateTimeOffset>,
+					// The time at which the authentication ticket was issued.
 
-                await HttpContext.SignInAsync(
-                    Constants.COOKIE_NAME, 
-                    new ClaimsPrincipal(claimsIdentity), 
-                    authProperties);
-                return Redirect("/");
-            }
-            return View(model);
-        }
+					//RedirectUri = <string>
+					// The full path or absolute URI to be used as an http 
+					// redirect response value.
+				};
 
-        [HttpPost]
-        public async Task<IActionResult> Logout(){
-            await HttpContext.SignOutAsync(Constants.COOKIE_NAME);
-            return Redirect("/");
-        }
-    }
+				await HttpContext.SignInAsync(
+					Constants.COOKIE_NAME,
+					new ClaimsPrincipal(claimsIdentity),
+					authProperties);
+				return Redirect("/");
+			}
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Logout()
+		{
+			await HttpContext.SignOutAsync(Constants.COOKIE_NAME);
+			return Redirect("/");
+		}
+	}
 }

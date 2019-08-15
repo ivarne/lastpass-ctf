@@ -17,22 +17,22 @@ namespace Ctf.Repositories
 			return Task.FromResult<Quest?>(QUESTS.FirstOrDefault(q => q.Id == id));
 		}
 
-        private static Quest[] QUESTS = new Quest[]{
-                new Quest(
-                    Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efb"),
-                    Name : "Intro",
-                    Points : 1,
-                    Description: "Enkel intro oppgave for å komme i gang",
-                    Area: "Intro"
-                ),
-                new Quest(
-                    Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efc"),
-                    Name : "Todo",
-                    Points : 100,
-                    Description: "Les notater som ikke er dine",
-                    Area: "Todo"
-                ),
-                new Quest(
+		private static Quest[] QUESTS = new Quest[]{
+				new Quest(
+					Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efb"),
+					Name : "Intro",
+					Points : 1,
+					Description: "Enkel intro oppgave for å komme i gang",
+					Area: "Intro"
+				),
+				new Quest(
+					Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efc"),
+					Name : "Todo",
+					Points : 100,
+					Description: "Les notater som ikke er dine",
+					Area: "Todo"
+				),
+				new Quest(
 					Id: Guid.Parse("bec30cd6-315e-42a0-a450-a3fc61a0a0f6"),
 					Name: "CookieJar",
 					Points: 100,
@@ -40,12 +40,19 @@ namespace Ctf.Repositories
 					Area: "CookieJar"
 				),
 				new Quest(
-                    Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efd"),
-                    Name : "Admin",
-                    Points : 1,
-                    Description: "Enkel chatte app, som lar deg stjele flagget fra admin",
-                    Area: "Admin"
-                ),
-            };
-    }
+					Id: Guid.Parse("e99b999f-c48b-4dba-a755-030574dfad0d"),
+					Name: "ByPass",
+					Points: 200,
+					Description: "Bruk andres cookies med XSRF",
+					Area: "ByPass"
+				),
+				new Quest(
+					Id : Guid.Parse("49bdf307-510b-4429-8539-a62c6a415efd"),
+					Name : "Admin",
+					Points : 300,
+					Description: "Enkel chatte app, som lar deg stjele flagget fra admin ved hjelp av XSS",
+					Area: "Admin"
+				),
+			};
+	}
 }

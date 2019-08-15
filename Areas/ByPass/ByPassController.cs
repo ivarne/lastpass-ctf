@@ -23,13 +23,11 @@ namespace Ctf.Areas.ByPass
 			return View();
 		}
 		[Authorize(Roles = "admin")]
-		[HttpGet]
-		[HttpPost]
 		public async Task<IActionResult> SetFlag(string team)
 		{
 			if (ModelState.IsValid)
 			{
-				// _scoringRepository.
+				await _scoringRepository.AddTeamScore(team, Guid.Parse("e99b999f-c48b-4dba-a755-030574dfad0d"));
 				return RedirectToAction("Index");
 			}
 			return RedirectToAction("Index");

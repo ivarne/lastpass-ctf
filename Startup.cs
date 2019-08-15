@@ -44,7 +44,11 @@ namespace Ctf
 			services.AddRazorPages();
 			services.AddSignalR();
 			services.AddAuthentication(Constants.COOKIE_NAME)
-				.AddCookie(Constants.COOKIE_NAME);
+				.AddCookie(options =>
+				{
+					options.Cookie.Name = Constants.COOKIE_NAME;
+					options.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+				});
 
 			// Add repositories
 			services.AddScoped<QuestRepository, QuestRepository>();
@@ -57,7 +61,7 @@ namespace Ctf
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-            UpdateDatabase(app); // Automatically migrate database
+			UpdateDatabase(app); // Automatically migrate database
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -73,49 +77,52 @@ namespace Ctf
 			app.UseStaticFiles();// wwwroot
 			app.UseAreaStaticFiles(); // Areas/{area}/wwwarearoot
 
-			app.UseCookiePolicy();
+			app.UseCookiePolicy(new CookiePolicyOptions
+			{
+				MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None
+			});
 
 			app.UseRouting();
 
-            app.UseAuthentication();
+			app.UseAuthentication();
 			app.UseAuthorization();
-            
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "areas",
-                    pattern: "{area:exists}/{controller:exists=Home}/{action=Index}/{id?}"
-                );
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                
-                endpoints.MapHub<ScoreHub>("/scoreHub");
-                endpoints.MapHub<AdminChatHub>("/adminChat");
-            });
-            // app.UseSignalR(routes =>
-            // {
-            //     routes.MapHub<ChatHub>("/chatHub");
-            // });
-        }
-        // Automatically run migrations on database on startup
-        private static void UpdateDatabase(IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices
-                .GetRequiredService<IServiceScopeFactory>()
-                .CreateScope())
-            {
-                using (var context = serviceScope.ServiceProvider.GetService<CtfDbContext>())
-                {
-                    Console.WriteLine("============================");
-                    Console.WriteLine("Before migration");
-                    Console.WriteLine("============================");
-                    context.Database.Migrate();
-                    Console.WriteLine("============================");
-                    Console.WriteLine("After migration");
-                    Console.WriteLine("============================");
-                }
-            }
-        }
-    }
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
+					name: "areas",
+					pattern: "{area:exists}/{controller:exists=Home}/{action=Index}/{id?}"
+				);
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Home}/{action=Index}/{id?}");
+
+				endpoints.MapHub<ScoreHub>("/scoreHub");
+				endpoints.MapHub<AdminChatHub>("/adminChat");
+			});
+			// app.UseSignalR(routes =>
+			// {
+			//     routes.MapHub<ChatHub>("/chatHub");
+			// });
+		}
+		// Automatically run migrations on database on startup
+		private static void UpdateDatabase(IApplicationBuilder app)
+		{
+			using (var serviceScope = app.ApplicationServices
+				.GetRequiredService<IServiceScopeFactory>()
+				.CreateScope())
+			{
+				using (var context = serviceScope.ServiceProvider.GetService<CtfDbContext>())
+				{
+					Console.WriteLine("============================");
+					Console.WriteLine("Before migration");
+					Console.WriteLine("============================");
+					context.Database.Migrate();
+					Console.WriteLine("============================");
+					Console.WriteLine("After migration");
+					Console.WriteLine("============================");
+				}
+			}
+		}
+	}
 }

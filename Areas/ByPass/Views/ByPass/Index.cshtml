@@ -1,0 +1,13 @@
+<h1>ByPass</h1>
+<p>
+    Mange sider vi vanligvis anser som sikre inkluderer lar brukere eller annonsører inkludere innhold fra tredjepart sider.
+    Dette gir oss et viktig problem som heter XSRF, der en bruker som er innlogget på din side, besøker en slik tredjepartsside.
+</p>
+<p>
+    I denne oppgaven er det ikke noe direkte flag, men en form der du kan taste inn team navn som skal få oppgaven godkjent. Det er bare admin som kan bruke formen, så vær kreativ
+</p>
+
+<form method="GET" asp-action="setFlag">
+    <input name="team" type="text" placeholder="Team navn">
+    <button disabled type="submit">Godkjen oppgave</button>
+</form>
