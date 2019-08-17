@@ -3,6 +3,7 @@
 <script>
     // This is the flag, but you need to get it from admin
     var flag = '@(Model.Flag)';
+    var connectionId = "@(Model.ConnectionId)";
 </script>
 
 <h1>Admin help</h1>
@@ -10,22 +11,18 @@
 <p>Prøv å ta kontakt med admin gjennom chatten</p>
 
 <p id="adminOnline">Laster....</p>
+<div id="messageList"></div>
 <textarea name="message" id="editor">
 
 </textarea>
 <button id="sendButton" class="btn btn-primary">Send</button>
-<div id="table" class="row">
 
-</div>
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
-    <script>
-    
-    </script>
 
     <script src="~/areas/admin.js" asp-append-version="true"></script>
 }
