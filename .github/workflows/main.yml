@@ -4,6 +4,7 @@ on:
   pull_request:
     types: [opened, reopened]
   label:
+    types: [created, deleted]
 
 jobs:
   label_pr:
