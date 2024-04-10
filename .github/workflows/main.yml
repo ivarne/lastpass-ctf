@@ -20,7 +20,7 @@ jobs:
              console.log('Prefix:', prefix);
              if (labelsToAdd.includes(prefix)) {
                console.log('Adding label:', prefix);
-               await github.issues.addLabels({
+               await github.rest.issues.addLabels({
                  issue_number: context.issue.number,
                  owner: context.repo.owner,
                  repo: context.repo.repo,
