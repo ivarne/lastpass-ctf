@@ -21,7 +21,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const branchName = '${{ steps.branch_name.outputs.name }}';
-            const prefix = branchName.split('/')[0];
             const labelsToAdd = ["bug", "feat", "ignore"];
             const prefix = branchName.split('-')[0];
             if (labelsToAdd.includes(prefix)) {
