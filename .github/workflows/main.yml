@@ -3,13 +3,15 @@ name: Label PR based on Branch Name
 on:
   pull_request:
     types: [opened, reopened]
+  label:
 
 jobs:
   label_pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Label PR
+      - name: Label PR from branchname
         uses: actions/github-script@v7
+        if: github.event_name == "opened"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -29,3 +31,27 @@ jobs:
              } else {
                console.log('No matching label found for prefix:', prefix);
              }
+      - name: Verify relevant label
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const releaseLabels = [
+                "breaking-change",
+                "feature",
+                "bugfix",
+                "dependency", 
+                "ignore-for-release",
+                ]
+            const labels = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            )).map(l=>l.name)
+            if(!labels.some(label=>{
+              releaseLabels.indexOf(label) != -1
+            })
+            {
+              core.setFailed('Pull request is missing label for release notes')
+            }
+            
