@@ -13,6 +13,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+             console.log(JSON.serialize(github))
              const branchName =  github.event.pull_request.head.ref;
              console.log('Branch Name:', branchName);
              const labelsToAdd = ["bug", "feat", "ignore"];
