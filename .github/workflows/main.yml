@@ -20,7 +20,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const branchName = '${{ steps.branch_name.outputs.name }}';
+             const branchName = github.context.payload.pull_request.head.ref;
              console.log('Branch Name:', branchName);
              const labelsToAdd = ["bug", "feat", "ignore"];
              const prefix = branchName.split('-')[0];
