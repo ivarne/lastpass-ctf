@@ -2,7 +2,7 @@ name: Label PR based on Branch Name
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened]
 
 jobs:
   label_pr:
