@@ -2,7 +2,7 @@ name: Label PR based on Branch Name
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened]
   label:
     types: [created, deleted]
 
@@ -16,11 +16,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+             console.log(JSON.stringify(context))
              const branchName =  context.payload.pull_request.head.ref;
              console.log('Branch Name:', branchName);
-             const labelsToAdd = ["bug", "feat", "ignore"];
              const prefix = branchName.split('/')[0];
              console.log('Prefix:', prefix);
+             const labelsToAdd = ["bug", "feat", "ignore"];
              if (labelsToAdd.includes(prefix)) {
                console.log('Adding label:', prefix);
                await github.rest.issues.addLabels({
