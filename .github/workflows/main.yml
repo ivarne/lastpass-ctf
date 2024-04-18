@@ -12,11 +12,11 @@ jobs:
     steps:
       - name: Label PR from branchname
         uses: actions/github-script@v7
-        if: github.event_name == 'opened'
+        if: github.event_name == 'pull_request'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-             console.log(JSON.stringify(context))
+             console.log(JSON.stringify(context));
              const branchName =  context.payload.pull_request.head.ref;
              console.log('Branch Name:', branchName);
              const prefix = branchName.split('/')[0];
@@ -44,16 +44,15 @@ jobs:
                 "bugfix",
                 "dependency", 
                 "ignore-for-release",
-                ]
+                ];
             const labels = await github.rest.issues.listLabelsOnIssue({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-            )).map(l=>l.name)
-            if(!labels.some(label=>{
-              releaseLabels.indexOf(label) != -1
-            })
+            }).map(l=>l.name);
+            
+            if(!labels.some(label=>releaseLabels.indexOf(label) != -1)
             {
-              core.setFailed('Pull request is missing label for release notes')
+              core.setFailed('Pull request is missing label for release notes');
             }
             
