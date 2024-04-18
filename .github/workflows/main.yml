@@ -49,11 +49,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-            )).map(l=>l.name);
+            }).map(l=>l.name);
             
-            if(!labels.some(label=>{
-              releaseLabels.indexOf(label) != -1
-            })
+            if(!labels.some(label=>releaseLabels.indexOf(label) != -1)
             {
               core.setFailed('Pull request is missing label for release notes');
             }
